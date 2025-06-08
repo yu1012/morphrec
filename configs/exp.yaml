@@ -1,0 +1,73 @@
+LOG_PATH: /logs
+EXP_ID: test
+GPUS: [0]
+SEED: 42
+NUM_BLOCKS: 5
+
+DATASET:
+  FILENAME_COLUMN: FILE_NAME
+  INDEX_PATH: ./data/chapman/index/0
+  TEST_INDEX_FNAME: test_df.pkl
+  TRAIN_INDEX_FNAME: train_df.pkl
+  VAL_INDEX_FNAME: valid_df.pkl
+  WAVEFORM_PATH: ./data/chapman/waveforms
+
+LOSS:
+  LAMBDA_GUID: 1
+  LAMBDA_PATCH: 1
+  PATCH_SIZE: 25
+  NAME: parl
+
+DATALOADER:
+  BATCH_SIZE: 128
+
+LOGGER:
+  USE_LOGGER: true
+  USE_MATPLOTLIB: true
+  USE_TENSORBOARD: true
+
+LR_SCHEDULER:
+  FACTOR: 0.5
+  MIN_LR: 1.0e-06
+  MODE: max
+  PATIENCE: 10
+  VERBOSE: true
+
+OPTIMIZER:
+  LR: 0.0001
+  NAME: adamw
+  WEIGHT_DECAY: 0.0001
+
+PREPROCESSING:
+  COND_LEAD:
+  - I
+  - II
+  GEN_LEAD:
+  - I
+  - II 
+  - V1
+  - V2
+  - V3
+  - V4
+  - V5
+  - V6
+  HIGH_PASS_FILTER:
+    CUT_OFF: 0.67
+    IS_ENABLED: true
+    ORDER: 5
+  GLOB_Z_NORM: True
+  LOW_PASS_FILTER:
+    CUT_OFF: 40
+    IS_ENABLED: true
+    ORDER: 5
+  NUM_CROPS: 1
+  SAMPLE_RATE: 250
+  SIGNAL_LEN_CUT_SEC: 9
+
+TRAIN:
+  EARLY_STOP_PATIENCE: 20
+  NUM_EPOCHS: 200
+  TASK: null
+  VAL_METRIC: mse
+  VAL_VIZ_N_SAMPLE: 5
+TRAIN_TEST_MODE: train_and_test
