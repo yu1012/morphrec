@@ -10,8 +10,8 @@ ECG Signal Preprocessing Module
 import numpy as np
 from scipy.signal import butter, resample, sosfiltfilt
 
-from utils import prf_divide
-from _glob_constant import MEANS, STDS
+from src.utils.utils import prf_divide
+from src.core.constants import MEANS, STDS
 
 
 class ECGProcessing:

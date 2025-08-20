@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class PatchAwareReconLoss(nn.Module):
-    def __init__(self, lambda_guid=1.0, lambda_corr=1.0, lambda_patch=1.0, patch_size=75):
+    def __init__(self, lambda_guid=1.0, lambda_corr=0.0, lambda_patch=1.0, patch_size=75):
         super().__init__()
         self.lambda_guid = lambda_guid
         self.lambda_corr = lambda_corr
@@ -65,7 +65,7 @@ def build_loss_fn(cfg):
         return F.mse_loss
     elif loss_name == 'parl':
         return PatchAwareReconLoss(lambda_guid=cfg.LOSS.LAMBDA_GUID,
-                                   lambda_corr=cfg.LOSS.LAMBDA_CORR,
+                                   lambda_corr=0.0,
                                    lambda_patch=cfg.LOSS.LAMBDA_PATCH,
                                    patch_size=cfg.LOSS.PATCH_SIZE)
     else:

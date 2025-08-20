@@ -4,8 +4,8 @@ from typing import Literal
 import numpy as np
 from torch.utils.data import Dataset
 
-from preprocessing import ECGProcessing
-from utils import load_dict
+from .preprocessing import ECGProcessing
+from src.utils.utils import load_dict
 
 
 class ECGDataset(Dataset):

@@ -13,6 +13,13 @@ def set_gpu(gpu):
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = gpu
 
+def set_ddp(world_size):
+    """Set up Distributed Data Parallel environment"""
+    os.environ['MASTER_ADDR'] = 'localhost'
+    os.environ['MASTER_PORT'] = '12355'
+    os.environ['WORLD_SIZE'] = str(world_size)
+    os.environ['RANK'] = '0'
+
 def set_seed(seed, is_cuda):
     # Set the random seed for reproducible experiments
     random.seed(seed)

@@ -1,4 +1,4 @@
-LOG_PATH: /logs
+LOG_PATH: ./logs
 EXP_ID: test
 GPUS: [0]
 SEED: 42
@@ -6,11 +6,11 @@ NUM_BLOCKS: 5
 
 DATASET:
   FILENAME_COLUMN: FILE_NAME
-  INDEX_PATH: ./data/chapman/index/0
+  INDEX_PATH: ./dataset/index/chapman/0
   TEST_INDEX_FNAME: test_df.pkl
   TRAIN_INDEX_FNAME: train_df.pkl
   VAL_INDEX_FNAME: valid_df.pkl
-  WAVEFORM_PATH: ./data/chapman/waveforms
+  WAVEFORM_PATH: ./dataset/chapman
 
 LOSS:
   LAMBDA_GUID: 1
@@ -70,4 +70,5 @@ TRAIN:
   TASK: null
   VAL_METRIC: mse
   VAL_VIZ_N_SAMPLE: 5
+
 TRAIN_TEST_MODE: train_and_test

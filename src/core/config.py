@@ -52,6 +52,9 @@ _CFG.TRAIN.EARLY_STOP_PATIENCE: Optional[int] = None
 _CFG.TRAIN.TASK: Optional[str] = None
 _CFG.TRAIN.VAL_VIZ_N_SAMPLE: Optional[int] = None
 
+_CFG.TEST = CN()
+_CFG.TEST.MODEL_CKPT_PATH: Optional[str] = None
+
 _CFG.PREPROCESSING = CN()
 _CFG.PREPROCESSING.COND_LEAD: Optional[list[str]] = None
 _CFG.PREPROCESSING.GEN_LEAD: Optional[list[str]] = None

@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from torch.utils.data import DataLoader
 
-from dataset import ECGDataset
+from .dataset import ECGDataset
 
 
 def fetch_dataloader(mode, df, cfg):

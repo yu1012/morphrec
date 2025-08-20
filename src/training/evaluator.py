@@ -6,8 +6,8 @@ import torch
 import pickle
 from tqdm import tqdm
 
-from _glob_constant import MEANS, STDS
-from metrics import batched_mse, batched_corr
+from src.core.constants import MEANS, STDS
+from .metrics import batched_mse, batched_corr
 
 def inference(model, dataloader, loss_fn, cfg, mode):
     model.eval()
@@ -117,7 +117,6 @@ def evaluate(model, loss_fn, dataloader, metrics, cfg, lead_wise_eval=False, sav
         recon_ecgs = recon_ecgs.detach().cpu().numpy()
         gt_ecgs = gt_ecgs.detach().cpu().numpy()
 
-        print("Saving pkl files...")
         save_path_recon_ecg = os.path.join(save_path, 'test_recon_ecg')
         os.makedirs(save_path_recon_ecg, exist_ok=True)
         

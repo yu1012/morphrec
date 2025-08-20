@@ -3,8 +3,8 @@ import torch
 
 from tqdm import tqdm
 
-import utils
-from eval_fn import evaluate
+from src.utils.utils import write_log, save_checkpoint
+from .evaluator import evaluate
 
 
 def train_one_epoch(model, optimizer, loss_fn, dataloader, cfg):
@@ -66,7 +66,7 @@ def train_and_evaluate(cfg, model, train_dl, val_dl, optimizer, scheduler, loss_
 
             logger.update_scalers(summary_dict)
             logger.update_images(val_imgs)
-        utils.write_log(epoch, save_path, 'results_log.txt', metrics_string)
+        write_log(epoch, save_path, 'results_log.txt', metrics_string)
     
     # early stopping
         if val_corr > best_val_result:
@@ -78,7 +78,7 @@ def train_and_evaluate(cfg, model, train_dl, val_dl, optimizer, scheduler, loss_
             fname = f'best_epoch_{epoch}_corr_{val_corr}.pth'
             best_model_path = os.path.join(save_path, fname)
             model_state_dict = model.module.state_dict() if len(cfg.GPUS) > 1 else model.state_dict()
-            utils.save_checkpoint({'epoch': epoch, 'model_state_dict': model_state_dict},
+            save_checkpoint({'epoch': epoch, 'model_state_dict': model_state_dict},
                                     checkpoint=save_path,
                                     filename=fname)
         else:

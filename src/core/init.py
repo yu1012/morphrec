@@ -3,35 +3,35 @@ import torch
 
 from glob import glob
 
-from data_loader import build_dataloader
-from logger import build_logger
-from losses import build_loss_fn
-from lr_scheduler import build_scheduler, build_scheduler
-from metrics import build_metric
-from models.style_unet import StyleUNet
-from optimizer import build_optimizer, build_optimizer
-import utils
+from src.data.data_loader import build_dataloader
+from .logger import build_logger
+from src.training.losses import build_loss_fn
+from src.training.scheduler import build_scheduler
+from src.training.metrics import build_metric
+from src.models.style_unet import StyleUNet
+from src.training.optimizer import build_optimizer
+from src.utils.utils import set_gpu, set_ddp, set_seed, make_save_dir, save_cfg
 
 def init_env(cfg):
     torch.set_num_threads(8)
     if cfg.GPUS:
         gpus = ','.join([str(i) for i in cfg.GPUS])
-        utils.set_gpu(gpus)
+        set_gpu(gpus)
         if len(cfg.GPUS) > 1 and cfg.DDP:
-            utils.set_ddp(len(cfg.GPUS))
+            set_ddp(len(cfg.GPUS))
         cfg.IS_CUDA_AVAILABLE = torch.cuda.is_available()
     else:
         cfg.IS_CUDA_AVAILABLE = False
     
-    utils.set_seed(cfg.SEED, cfg.IS_CUDA_AVAILABLE)
+    set_seed(cfg.SEED, cfg.IS_CUDA_AVAILABLE)
     cfg.freeze()
 
     return cfg
 
 def init_train(cfg):
     log_path = os.path.join(cfg.LOG_PATH, f"{cfg.EXP_ID}")
-    utils.make_save_dir(log_path)
-    utils.save_cfg(log_path, cfg)
+    make_save_dir(log_path)
+    save_cfg(log_path, cfg)
 
     model = StyleUNet(num_blocks=cfg.NUM_BLOCKS)
 
@@ -51,8 +51,8 @@ def init_train(cfg):
 def init_test(cfg):
     log_path = os.path.join(cfg.LOG_PATH, f"{cfg.EXP_ID}")
 
-    utils.make_save_dir(log_path)
-    utils.save_cfg(log_path, cfg)
+    make_save_dir(log_path)
+    save_cfg(log_path, cfg)
 
     model = StyleUNet(num_blocks=cfg.NUM_BLOCKS)
 
