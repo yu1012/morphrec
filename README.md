@@ -202,3 +202,12 @@ You can modify their values in the configuration file at `configs/config.yaml` t
 </p>
 
 ---
+
+## License
+© VUNO Inc. All rights reserved.
+ 
+This repository contains code developed at VUNO Inc. by its employees as part of their official duties.
+Do not distribute, modify, or use this code outside the scope permitted by the license without explicit permission from VUNO.
+
+---
+
